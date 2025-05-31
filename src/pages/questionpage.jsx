@@ -14,7 +14,7 @@ function QuestionPage({category}){
 
     function handleAnswer(selection){
 
-        if (currentQ.answer === selection){
+        if (currentQ.correct === selection){
             setCorrect(correct + 1);
         }
 
@@ -36,7 +36,7 @@ function QuestionPage({category}){
             category = {category}
             question = {currentQ.question}
             options = {currentQ.options}
-            answer = {currentQ.answer}
+            answer = {currentQ.correct}
             onSelect = {handleAnswer}
             />) :
             (
