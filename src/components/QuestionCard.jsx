@@ -1,6 +1,6 @@
 import React from 'react';
 
-function QuestionCard({question, options, onSelect}){
+function QuestionCard({category, question, options, onSelect}){
     return(
         <div>
             <h2> {question} </h2>
