@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuestionCard from '../components/QuestionCard';
-import Questions from '../data/questions_long'
+import Questions from '../data/questions_long';
+import Timer from '../components/timer';
+import FinishedPage from './finishedPage';
 
 
 function QuestionPage({category}){
@@ -9,13 +11,25 @@ function QuestionPage({category}){
     const [correct, setCorrect] = useState(0);
     const [hasStarted, setHasStarted] = useState(true);
     const [hasFinished, setHasFinished] = useState(false);
+    const [seconds, setSeconds] = useState(0);
 
     const currentQ = Questions[category][questionIndex];
+
+    useEffect(()=>{
+        let timer;
+        if(hasStarted && !hasFinished){
+            timer = setInterval(()=>{
+                setSeconds(prev=>prev+1);
+            }, 1000);
+        }
+
+        return() => clearInterval(timer);
+    },[hasStarted, hasFinished]);
 
     function handleAnswer(selection){
 
         if (currentQ.correct === selection){
-            setCorrect(correct + 1);
+            setCorrect(prev =>prev + 1);
         }
 
         const nextIndex = questionIndex + 1;
@@ -26,24 +40,26 @@ function QuestionPage({category}){
         else{
             setHasFinished(true);
         }
-
     }
 
     return(
         <div>
             <h2>{category} Questions </h2>
-            {!hasFinished ? (            <QuestionCard
+            {!hasFinished ? (      <div>      <QuestionCard
             category = {category}
             question = {currentQ.question}
             options = {currentQ.options}
             answer = {currentQ.correct}
             onSelect = {handleAnswer}
-            />) :
+            />
+         <Timer seconds = {seconds}/>
+    </div>) :
             (
-            <div>
-              <h2> Quiz Finished </h2>
-              <p>Your score is {correct} / {Questions[category].length} </p>
-            </div>
+                <FinishedPage
+                correct = {correct}
+                category = {category}
+                seconds = {seconds}
+                Questions = {Questions} />
             )
             }
         </div>

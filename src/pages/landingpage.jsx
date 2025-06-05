@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 
 import ChoiceList from '../components/choicelist';
 
-import QuestionPage from '../pages/questionpage' ;
+import QuestionPage from './questionpage' ;
 
 
 function LandingPage(){

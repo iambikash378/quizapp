@@ -6,12 +6,14 @@ import QuestionCard from './components/QuestionCard';
 
 import questions from './data/questions';
 
-import LandingPage from './pages/landingpage'
+import LandingPage from './pages/landingpage';
 
-function App() {
+import { Routes, Route } from 'react-router-dom';
+
+const App= () => {
 
   return(
-    <LandingPage />
+    <LandingPage/>
   )
 
   // const[currentIndex, setCurrentIndex] = useState(0);
